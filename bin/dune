@@ -1,0 +1,4 @@
+(executable
+ (public_name pelican)
+ (name main)
+ (libraries pelican notty notty.unix))
