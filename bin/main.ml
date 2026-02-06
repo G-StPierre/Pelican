@@ -14,8 +14,15 @@ let () =
   let files = Scanner.get_md_files "." in
     
     if List.length files = 0 then
-      print_endline "No markdown files found in the current directory."
+      print_endline "No Markdown files found in the current directory."
     else begin
-      print_endline "Found the following Markdown files:";
-      List.iter (fun f -> Printf.printf "- %s\n" f) files
+    let all_links = Scanner.scan_all_files files in
+      
+      if List.length all_links = 0 then
+        print_endline "Found Markdown files, but no [[links]] inside them."
+      else begin
+        print_endline "Found the following Markdown links:";
+        (* 2. Iterate over the links instead of the filenames *)
+        List.iter (fun link -> Printf.printf "- [[%s]]\n" link) all_links
+      end
     end
